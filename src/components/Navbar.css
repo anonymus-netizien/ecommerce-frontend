@@ -1,0 +1,320 @@
+/* ============================================================
+   Navbar — ShopVibe Stitch-Design Header
+   ============================================================ */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-8);
+    background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 4px solid rgba(139, 90, 43, 0.08);
+    box-shadow: 0 10px 30px -15px rgba(212, 132, 90, 0.10);
+}
+
+.dark .navbar {
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 4px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Wood grain accent overlay ──────────────────── */
+.navbar-wood-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+.navbar-inner {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+/* ── Left: Brand + Search ────────────────────────── */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.navbar-brand-text {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    font-style: italic;
+    color: var(--color-primary);
+    letter-spacing: -0.03em;
+    transition: transform 200ms ease;
+}
+
+.navbar-brand:hover .navbar-brand-text {
+    transform: scale(1.04);
+}
+
+/* ── Search Bar ──────────────────────────────────── */
+.navbar-search-wrapper {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all var(--transition-base);
+}
+
+.dark .navbar-search-wrapper {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.navbar-search-wrapper:focus-within {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--color-primary);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02), 0 0 0 3px var(--color-primary-glow);
+}
+
+.dark .navbar-search-wrapper:focus-within {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-search-icon {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dim);
+    margin-right: var(--space-2);
+    flex-shrink: 0;
+}
+
+.navbar-search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dark);
+    width: 180px;
+    min-width: 0;
+    font-family: var(--font-sans);
+}
+
+.dark .navbar-search-input {
+    color: var(--color-text);
+}
+
+.navbar-search-input::placeholder {
+    color: var(--color-text-dim);
+}
+
+/* ── Nav Links ───────────────────────────────────── */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+}
+
+.navbar-nav-link {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.navbar-nav-link:hover {
+    background: rgba(245, 203, 167, 0.2);
+    color: var(--color-primary);
+}
+
+.dark .navbar-nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.navbar-nav-link--active {
+    color: var(--color-primary);
+    font-weight: 700;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: var(--space-1);
+}
+
+.navbar-nav-link--home {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+}
+
+.navbar-nav-link--home:hover {
+    background: rgba(245, 203, 167, 0.15);
+}
+
+/* ── Action Buttons ──────────────────────────────── */
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+}
+
+.navbar-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.navbar-action-btn:hover {
+    background: rgba(245, 203, 167, 0.2);
+    color: var(--color-primary);
+}
+
+.dark .navbar-action-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.navbar-action-btn .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.navbar-wishlist-dot {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 50%;
+}
+
+/* ── Cart Button ─────────────────────────────────── */
+.navbar-cart-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.dark .navbar-cart-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.navbar-cart-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+
+.navbar-cart-icon {
+    font-size: 20px;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+}
+
+.navbar-cart-btn:hover .navbar-cart-icon {
+    transform: scale(1.1);
+}
+
+.navbar-cart-label {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.dark .navbar-cart-label {
+    color: var(--color-text);
+}
+
+/* ── Badge ───────────────────────────────────────── */
+.navbar-badge {
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    padding: 0 6px;
+    line-height: 1;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 var(--space-4);
+    }
+    .navbar-left {
+        gap: var(--space-4);
+    }
+    .navbar-brand-text {
+        font-size: var(--font-size-xl);
+    }
+    .navbar-cart-label {
+        display: none;
+    }
+    .navbar-action-btn {
+        width: 34px;
+        height: 34px;
+    }
+    .navbar-action-btn .material-symbols-outlined {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand-text {
+        font-size: var(--font-size-lg);
+    }
+    .navbar-actions {
+        gap: var(--space-1);
+    }
+    .navbar-cart-btn {
+        padding: var(--space-1) var(--space-3);
+    }
+}

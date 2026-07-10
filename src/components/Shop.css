@@ -1,0 +1,214 @@
+/* ============================================================
+   Shop — Hero Banner, Category Filters & 4-Column Grid
+   ============================================================ */
+
+/* ── Hero Banner Section ──────────────────────────── */
+.shop-hero {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    min-height: 440px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-12);
+    box-shadow: var(--shadow-card-elevated);
+    background: #1e293b;
+}
+
+.shop-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCD78rdJgFFpKHKWrp75E58KvQ_3KoIXdNnJkfO6CHECgnQQ4uL24agnxlgu0TYrhxSKbitBujc-fAsAvPqWbiBq9pUGn8dEs2GgS4LyE_rq4JQjiOQsA-5V4XHbwkWisMd7Sq_zY_t_gmrbJdKnEXTMMyxy6w4r_qPyKtXUTUS3QeGofLHySreji6koBUKy1uquLFSKwtrkFgEaYeXRk-96Vgc9iqJY8zm9CK8eD5kZATbhelzyQCE-WybI-xJkdvIemipcrKhBdWl');
+    background-size: cover;
+    background-position: center;
+    transition: transform 700ms ease;
+}
+
+.shop-hero:hover .shop-hero-bg {
+    transform: scale(1.04);
+}
+
+.shop-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.15) 100%);
+}
+
+.shop-hero-card {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: var(--space-10) var(--space-12);
+    max-width: 680px;
+    margin: var(--space-6);
+    background: var(--color-surface-glass) !important;
+    border: 1px solid var(--color-border-glass);
+}
+
+.shop-hero-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--color-text-dark);
+    margin-bottom: var(--space-3);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.shop-hero-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+    line-height: 1.6;
+}
+
+.shop-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-8);
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: var(--font-size-base);
+}
+
+.hero-cta-arrow {
+    transition: transform var(--transition-base);
+}
+
+.shop-hero-cta:hover .hero-cta-arrow {
+    transform: translateX(4px);
+}
+
+/* ── Catalog Section Header & Filter Pills ────────── */
+.shop-catalog-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+}
+
+.shop-section-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: var(--space-1);
+}
+
+.shop-section-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.shop-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.shop-filter-btn {
+    padding: var(--space-1-5) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border-glass);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+.dark .shop-filter-btn {
+    background: rgba(48, 38, 32, 0.65);
+    color: var(--color-text-muted);
+}
+
+.shop-filter-btn:hover {
+    background: rgba(245, 203, 167, 0.25);
+    color: var(--color-primary);
+    border-color: rgba(212, 132, 90, 0.4);
+}
+
+.dark .shop-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-primary-hover);
+}
+
+.shop-filter-btn.active {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(212, 132, 90, 0.25);
+}
+
+/* ── Product Grid (Stitch 4-Column with 40px gap) ─── */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.product-grid-item {
+    animation: fadeIn 450ms ease fill-mode;
+}
+
+.shop-error {
+    text-align: center;
+    padding: var(--space-10);
+    max-width: 500px;
+    margin: var(--space-12) auto;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.shop-error-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-danger);
+    margin-bottom: var(--space-2);
+}
+
+.shop-error-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+}
+
+/* ── Responsive Grid Breakpoints ──────────────────── */
+@media (max-width: 1100px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shop-hero {
+        min-height: 360px;
+        border-radius: var(--radius-lg);
+    }
+    .shop-hero-card {
+        padding: var(--space-6);
+    }
+    .shop-hero-title {
+        font-size: var(--font-size-2xl);
+    }
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
