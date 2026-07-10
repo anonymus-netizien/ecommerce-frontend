@@ -1,20 +1,16 @@
-export interface OrderItem {
-    productId: number;
-    name: string;
-    price: number;
-    quantity: number;
-    imageUrl: string;
-}
+import type { CartItem } from "./CartItem";
 
 export interface Order {
-    id: string;
-    items: OrderItem[];
-    subtotal: number;
-    shipping: number;
-    discount: number;
-    total: number;
+    orderNumber: number;
+    customerName: string;
+    mobile: string;
     email: string;
-    paymentMethod: string;
-    shippingMethod: string;
-    createdAt: string;
+    address: string;
+    paymentMode: string;
+    grandTotal: number;
+    discount: number;
+    finalAmount: number;
+    orderDate: string;
+    status: string;
+    items: CartItem[];
 }

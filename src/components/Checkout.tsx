@@ -1,12 +1,13 @@
 import React, { useContext, useRef, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { OrderContext } from "../context/OrderContext";
 import { sendOrderConfirmation } from "../services/EmailService";
-import type { Order } from "../interfaces/Order";
 import "./Checkout.css";
 
 function Checkout() {
     const { cart, clearCart } = useContext(CartContext);
+    const { addOrder } = useContext(OrderContext);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -56,36 +57,20 @@ function Checkout() {
             return;
         }
 
-        const generatedId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+        const generatedId = Math.floor(100000 + Math.random() * 900000);
         const customerEmail = emailRef.current?.value || "";
-        const _firstName = (document.getElementById("checkout-fname") as HTMLInputElement)?.value || "Customer";
-
-        // Save order to localStorage
-        const order: any = { firstName: _firstName, 
-            id: generatedId,
-            items: cart.map((item) => ({
-                productId: item.id,
-                name: item.name,
-                price: item.price,
-                quantity: item.quantity,
-                imageUrl: item.imageUrl,
-            })),
-            subtotal,
-            shipping: currentShipping,
-            discount: discountAmount,
-            total: totalAmount,
-            email: customerEmail,
-            paymentMethod,
-            shippingMethod,
-            createdAt: new Date().toISOString(),
-        };
-        const orders: Order[] = JSON.parse(localStorage.getItem("shopvibe-orders") || "[]");
-        orders.push(order);
-        localStorage.setItem("shopvibe-orders", JSON.stringify(orders));
+        const firstName = (document.getElementById("checkout-fname") as HTMLInputElement)?.value || "Customer";
+        const lastName = (document.getElementById("checkout-lname") as HTMLInputElement)?.value || "";
+        const phone = (document.getElementById("checkout-phone") as HTMLInputElement)?.value || "";
+        const street = (document.getElementById("checkout-street") as HTMLInputElement)?.value || "";
+        const city = (document.getElementById("checkout-city") as HTMLInputElement)?.value || "";
+        const state = (document.getElementById("checkout-state") as HTMLInputElement)?.value || "";
+        const zip = (document.getElementById("checkout-zip") as HTMLInputElement)?.value || "";
+        const fullAddress = `${street}, ${city}, ${state} ${zip}`;
 
         // Send order confirmation email (nested cost object for template {{cost.shipping}} etc.)
         sendOrderConfirmation({
-            order_id: generatedId,
+            order_id: String(generatedId),
             orders: cart.map((item) => ({
                 image_url: item.imageUrl,
                 name: item.name,
@@ -101,8 +86,24 @@ function Checkout() {
             email: customerEmail,
         });
 
-        setOrderId(generatedId);
+        // Add order to context
+        addOrder({
+            orderNumber: generatedId,
+            customerName: `${firstName} ${lastName}`,
+            mobile: phone,
+            email: customerEmail,
+            address: fullAddress,
+            paymentMode: paymentMethod,
+            grandTotal: subtotal + currentShipping,
+            discount: discountAmount,
+            finalAmount: totalAmount,
+            orderDate: new Date().toLocaleString(),
+            status: "PLACED",
+            items: [...cart],
+        });
+
         clearCart();
+        setOrderId(String(generatedId));
         setOrderPlaced(true);
     };
 
@@ -153,13 +154,22 @@ function Checkout() {
                             </span>
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        className="btn btn-primary btn-lg w-full py-4 text-base font-bold rounded-full shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-                        onClick={() => navigate("/")}
-                    >
-                        Return to Shop
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-3 w-full">
+                        <button
+                            type="button"
+                            className="btn btn-primary btn-lg flex-1 py-4 text-base font-bold rounded-full shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                            onClick={() => navigate("/orders")}
+                        >
+                            View Orders
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-outline btn-lg flex-1 py-4 text-base font-bold rounded-full hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                            onClick={() => navigate("/")}
+                        >
+                            Return to Shop
+                        </button>
+                    </div>
                 </div>
             </div>
         );

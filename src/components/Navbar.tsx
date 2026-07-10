@@ -43,6 +43,9 @@ function Navbar() {
                         <NavLink to="/" end className={({ isActive }) => `navbar-nav-link ${isActive ? "navbar-nav-link--active" : ""}`}>
                             Shop
                         </NavLink>
+                        <NavLink to="/orders" className={({ isActive }) => `navbar-nav-link ${isActive ? "navbar-nav-link--active" : ""}`}>
+                            Orders
+                        </NavLink>
                         <a href="#" className="navbar-nav-link">Categories</a>
                         <a href="#" className="navbar-nav-link">Offers</a>
                         <a href="#" className="navbar-nav-link">About</a>
