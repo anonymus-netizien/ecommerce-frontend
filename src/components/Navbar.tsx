@@ -173,19 +173,16 @@ function Navbar() {
                 <MobileDrawer
                     searchQuery={searchQuery}
                     onSearchChange={setSearchQuery}
-                    user={user}
-                    pathname={location.pathname}
                     onClose={() => setMobileNavOpen(false)}
-                    onLogout={handleLogout}
                 />
             )}
         </header>
     );
 }
 
-function MobileDrawer({ searchQuery, onSearchChange, user, pathname, onClose, onLogout }: {
-    searchQuery: string; onSearchChange: (q: string) => void; user: any;
-    pathname: string; onClose: () => void; onLogout: () => void;
+function MobileDrawer({ searchQuery, onSearchChange, onClose }: {
+    searchQuery: string; onSearchChange: (q: string) => void;
+    onClose: () => void;
 }) {
     const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -206,21 +203,11 @@ function MobileDrawer({ searchQuery, onSearchChange, user, pathname, onClose, on
             <NavLink to="/" end className={({ isActive }) => `navbar-mobile-link ${isActive ? "navbar-mobile-link--active" : ""}`} onClick={onClose}>
                 <span className="material-symbols-outlined">store</span> Shop
             </NavLink>
-            <NavLink to="/#catalog-section" className="navbar-mobile-link" onClick={() => { onClose(); if (pathname === "/") document.getElementById("catalog-section")?.scrollIntoView({ behavior: "smooth" }); }}>
+            <NavLink to="/#catalog-section" className="navbar-mobile-link" onClick={onClose}>
                 <span className="material-symbols-outlined">category</span> Categories
             </NavLink>
             <a href="#" className="navbar-mobile-link"><span className="material-symbols-outlined">local_offer</span> Offers</a>
             <a href="#" className="navbar-mobile-link"><span className="material-symbols-outlined">info</span> About</a>
-            <div className="dropdown-divider"></div>
-            {user ? (
-                <button className="navbar-mobile-link" onClick={() => { onClose(); onLogout(); }}>
-                    <span className="material-symbols-outlined">logout</span> Logout
-                </button>
-            ) : (
-                <NavLink to="/login" state={{ from: pathname }} className="navbar-mobile-link" onClick={onClose}>
-                    <span className="material-symbols-outlined">login</span> Login
-                </NavLink>
-            )}
         </div>
     );
 }
