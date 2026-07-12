@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Checkout from "./components/Checkout";
 import OrderDetails from "./components/OrderDetails";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./App.css";
 
@@ -19,10 +20,10 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Shop />} />
                         <Route path="/cart" element={<Cart />} />
-                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/orders" element={<OrderDetails />} />
+                        <Route path="/orders" element={<ProtectedRoute><OrderDetails /></ProtectedRoute>} />
                     </Routes>
                 </main>
             </div>

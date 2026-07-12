@@ -2,22 +2,35 @@ import {Gender, Role, type SignupRequest} from "../interfaces/SignupRequest";
 import {useForm} from "react-hook-form";
 import {serviceRegister} from "../services/AuthService";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./Signup.css";
 
 function Signup() {
     const {register, handleSubmit, reset} = useForm<SignupRequest>();
     const [statusMsg, setStatusMsg] = useState<{type: "success" | "error"; text: string} | null>(null);
+    const navigate = useNavigate();
 
     const onSubmit = async (data: SignupRequest) => {
         try {
-            const response = await serviceRegister(data);
-            console.log("Register Response:", response);
-            setStatusMsg({type: "success", text: "Account created successfully! You can now shop curated collections."});
+            console.log("Submitting Signup Data:", data);
+
+            // Execute service register which handles localStorage flow
+            await serviceRegister(data);
+
+            setStatusMsg({type: "success", text: "Account created successfully! Redirecting to login..."});
+            
+            // Programmatic redirect after 1.5 seconds so user can see success message
+            setTimeout(() => {
+                navigate("/login");
+            }, 1500);
+            
             reset();
-        } catch (err) {
+        } catch (err: any) {
             console.error("Register Error:", err);
-            setStatusMsg({type: "error", text: "Registration failed. Please check your inputs and try again."});
+            setStatusMsg({
+                type: "error",
+                text: err.message || "Registration failed. Please check your inputs and try again."
+            });
         }
     };
 

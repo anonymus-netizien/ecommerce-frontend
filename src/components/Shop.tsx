@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 import {fetchProducts} from "../services/ProductService";
 import type {Product} from "../interfaces/Product";
 import ProductCard from "./ProductCard";
@@ -9,10 +10,20 @@ function Shop() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [activeCategory, setActiveCategory] = useState("all");
+    const location = useLocation();
 
     useEffect(() => {
         loadProducts();
     }, []);
+
+    useEffect(() => {
+        if (!loading && (location.hash === "#catalog-section" || location.state?.scrollToCatalog)) {
+            const timer = setTimeout(() => {
+                document.getElementById("catalog-section")?.scrollIntoView({behavior: "smooth"});
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [loading, location.hash, location.state]);
 
     async function loadProducts() {
         try {

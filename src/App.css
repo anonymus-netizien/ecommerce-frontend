@@ -1,14 +1,6 @@
 /* ============================================================
    App Layout — Container, Page Wrapper & Utilities (ShopVibe)
    ============================================================ */
-
-.app-layout {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
 /* ── Creamy Haze Ambient Overlay (from Stitch) ────── */
 .creamy-haze {
     position: fixed;
@@ -137,12 +129,6 @@
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.9);
 }
 
-.modal-icon {
-    font-size: 4rem;
-    margin-bottom: var(--space-4);
-    line-height: 1;
-}
-
 .modal-title {
     font-family: var(--font-serif);
     font-size: var(--font-size-3xl);
@@ -218,26 +204,6 @@
     border-color: var(--color-primary);
     transform: translateY(-1px);
 }
-
-.btn-danger {
-    background: rgba(239, 68, 68, 0.1);
-    color: var(--color-danger);
-    border: 1px solid rgba(239, 68, 68, 0.25);
-}
-
-.btn-danger:hover {
-    background: var(--color-danger);
-    color: #fff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
-}
-
-.btn-sm {
-    padding: var(--space-1) var(--space-4);
-    font-size: var(--font-size-xs);
-    border-radius: var(--radius-full);
-}
-
 .btn-lg {
     padding: var(--space-4) var(--space-8);
     font-size: var(--font-size-base);

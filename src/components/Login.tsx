@@ -2,22 +2,35 @@ import {type LoginRequest} from "../interfaces/LoginRequest";
 import {useForm} from "react-hook-form";
 import {serviceLogin} from "../services/AuthService";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import "./Signup.css";
 
 function Login() {
     const {register, handleSubmit} = useForm<LoginRequest>();
     const [statusMsg, setStatusMsg] = useState<{type: "success" | "error"; text: string} | null>(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = (location.state as { from?: string })?.from || "/";
+    const isRedirected = from !== "/";
 
     const onSubmit = (data: LoginRequest) => {
         serviceLogin(data)
             .then((res) => {
                 console.log("Login Response:", res);
-                setStatusMsg({type: "success", text: "Welcome back! Redirecting to shop..."});
+                const redirectLabel = from === "/checkout" ? "checkout" : from === "/orders" ? "orders" : "shop";
+                setStatusMsg({type: "success", text: `Welcome back! Redirecting to ${redirectLabel}...`});
+                
+                // Programmatic redirect back to the page they came from
+                setTimeout(() => {
+                    navigate(from, { replace: true });
+                }, 1500);
             })
-            .catch((err) => {
+            .catch((err: any) => {
                 console.error("Login Error:", err);
-                setStatusMsg({type: "error", text: "Invalid email or password. Please try again."});
+                setStatusMsg({
+                    type: "error",
+                    text: err.message || "Invalid email or password. Please try again."
+                });
             });
     };
 
@@ -28,9 +41,15 @@ function Login() {
                     <header className="signup-header">
                         <span className="material-symbols-outlined text-5xl text-[var(--color-primary)] mb-3">lock_open</span>
                         <h1 className="signup-header-title">Welcome Back</h1>
-                        <p className="signup-header-text">
-                            Sign in to access your orders, saved items, and exclusive deals.
-                        </p>
+                        {isRedirected ? (
+                            <p className="signup-header-text">
+                                Please sign in to continue. Don&apos;t have an account? <Link to="/signup" className="auth-link">Create one</Link> below. Your cart items are saved and will be waiting for you.
+                            </p>
+                        ) : (
+                            <p className="signup-header-text">
+                                Sign in to access your orders, saved items, and exclusive deals.
+                            </p>
+                        )}
                     </header>
 
                     {statusMsg && (
