@@ -1,5 +1,6 @@
 // ponytail: ResizeObserver detects overflow — measures actions area dynamically
-import { useState, useEffect, useCallback, useRef, RefObject } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import type { RefObject } from "react";
 
 export function useOverflowDetection(
     containerRef: RefObject<HTMLElement | null>,
